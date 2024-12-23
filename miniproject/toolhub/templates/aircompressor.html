@@ -1,0 +1,29 @@
+{% extends "app.html" %}
+{% load static %}
+{% block content %}
+{% include "navbar.html" %}
+    <div class="container-fluid m-5 ">
+        <h1 class="m-5">Air Compresssor </h1>
+  
+    <div class="sec-body container border-1">
+        <!-- Hand Tools Section -->
+        <section id="hand-tools">
+            <div id="product-list" class="row">
+                <!-- products of hand tools -->
+                {% for p in aircompressor %}
+                <div class="col-md-4">
+                    <div class="product">
+                        <a href="{% url 'description' p.id %}" class="zoom-img"><img src="{{p.imageURL}}" alt="Product 2" class="prod-img"></a>                        <h5>{{p.name}}</h5>
+                        <p class="text-success">₹{{p.price}}</p>
+                        <button class="btn btn-primary">Add to Cart</button>
+                    </div>
+                </div>
+                {% endfor %}
+        </section>
+    </div>
+       
+    
+        <!-- Add more sections for  categories -->
+    </div>
+    {% include 'footer.html' %}
+    {% endblock content %}

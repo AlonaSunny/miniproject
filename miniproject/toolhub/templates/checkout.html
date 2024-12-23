@@ -1,0 +1,47 @@
+{% extends 'app.html' %}
+{% block content %}
+  {% include 'navbar.html' %}
+  <div class="container mt-5">
+    <h1 class="mb-4">Checkout</h1>
+    <div class="row">
+      <div class="col-md-12">
+        {% if cart_products %}
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in cart_products %}
+                <tr>
+                  <td>{{ item.product.name }}</td>
+                  <td>{{ item.quantity }}</td>
+                  <td>₹{{ item.product.price }}</td>
+                  <td>₹{{ item.subtotal }}</td>
+                </tr>
+              {% endfor %}
+              <tr>
+                <td colspan="3">Total</td>
+                <td>₹{{ total_price }}</td>
+              </tr>
+            </tbody>
+          </table>
+          
+          <form method="post">
+            {% csrf_token %}
+            <button class="btn btn-primary"><a href="{% url 'index' %}">Back To Shopping</a></button>
+            <button type="submit" class="btn btn-danger">Confirm Order</button>
+          </form>
+          
+        {% else %}
+          <p>Your cart is empty.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% include 'footer.html' %}
+{% endblock %}

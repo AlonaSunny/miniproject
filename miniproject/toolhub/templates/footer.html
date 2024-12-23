@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bootstrap Footer Template</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Customize the footer style */
+    footer {
+      background-color:#262626;
+      color: white;
+    }
+    footer a{
+        text-decoration:none;
+        color: white;
+        display: block;
+        padding:6px;
+    }
+    ion-icon{
+        width: 100%;
+        height: 30px;
+    }
+    footer ion-icons{
+        display: block;
+        padding: 16px;
+    }
+  </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+  <footer class="footer mt-auto py-3">
+    <div class="row text-center  d-flex p-1">
+        <div class="col-md-3">
+            <a href="#">FAQ's</a>
+            <a href="#">Terms and Conditons</a>
+            <a href="#">Privacy and Policy</a>
+        </div>
+        <div class="col-md-3">
+            <a href="{% url 'index' %}">Home</a>
+            <a href="{% url 'about' %}">About</a>
+            <a href="{% url 'contact' %}">Contact</a>
+        </div>
+        <div class="col-md-3">
+            <strong>Contact</strong>
+            <p class="p-3">ToolHub, Near Regency Hall,
+                alappuzha-kollam NH Road, Oachira,
+                Kollam,Kerala, 690526</p>
+        </div>
+        <div class="col-md-3 d-grid connect">
+            <strong class="ms-3">Connect</strong><br>
+            <ion-icon name="logo-instagram"></ion-icon>
+            <ion-icon name="mail-outline"></ion-icon>            
+        </div>
+    </div>
+    <div class="container text-center pt-4">
+      <span>Copyright © 2024 Tool Hub</span>
+    </div>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

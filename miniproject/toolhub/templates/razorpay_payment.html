@@ -1,0 +1,59 @@
+{% extends "app.html" %}
+{% load static %}
+{% block content %}
+{% include "navbar.html" %}
+    <div class="container  mr-5 mt-5 text-center">
+        <div class="row text-center">
+            <div class="col-4 mt-5 text-center">
+                <div class="card cart-empty">
+                    <div class="card-body">
+                        <p>Click Here To Pay</p>
+                        <button class="btn btn-danger" id="rzp-button">Pay Now</button>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Render the payment button -->
+    
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        // Initialize Razorpay checkout
+        var options = {
+            "key": "{{ order.key }}",  // Your Razorpay API key
+            "amount": "{{ order.amount }}",  // Total amount to be paid (in paisa)
+            "currency": "{{ order.currency }}",  // Currency
+            "name": "TooHub",
+            "description": "Payment for order",
+            "order_id": "{{ order.id }}",  // Order ID
+            "handler": function (response) {
+                // Handle successful payment response
+                console.log(response);
+                alert('Payment successful!');
+                // Redirect to a thank you page or any other page
+                window.location.href = "{% url 'index' %}";
+            },
+            "prefill": {
+                "name": "{{ order.customer_name }}",  // Customer name
+                "email": "{{ order.customer_email }}"  // Customer email
+            },
+            "notes": {
+                "shipping_address": "{{ order.shipping_address }}"  // Shipping address
+            },
+            "theme": {
+                "color": "#F37254"  // Customize the color of the payment button
+            }
+        };
+
+        var rzp = new Razorpay(options);
+
+        // Attach event listener to the payment button
+        document.getElementById('rzp-button').onclick = function (e) {
+            rzp.open();
+            e.preventDefault();
+        };
+    </script>
+{% include 'footer.html' %}
+{% endblock content %}  

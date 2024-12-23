@@ -1,0 +1,40 @@
+{% extends 'app.html' %}
+{% load static %}
+{% block content %}
+  {% include 'navbar.html' %}
+
+  <div class="container-fluid mt-5 mb-5">
+    <div class="container-fluid mt-5">
+      <div class="row container-fluid bg-light">
+        <div class="col-md-12 border cart-desc">
+          <div class="row">
+            <img src="{{ product.imageURL }}" width="100%" height="300px" alt="noimg" class="col-md-3 m-5">
+            <div class="col-md-6 mt-4 description bg-light">
+              <span class="pro-name">{{ product.name }}</span><br><br>
+              <span class="pro-quantity text-muted">1 unit</span><br><br>
+              <span class="pro-price">₹{{ product.price }}</span><br>
+              <div class="row">
+                <div class="col-md-3">
+                  <form action="{% url 'add_to_cart' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                    <input type="number" name="quantity" value="1">
+                    <button type="submit" class="btn btn-primary col-10  mt-4">Add to Cart</button>
+                  </form>
+                </div>
+                <div class="col-md-4">
+                </div>
+              </div>
+              <div class="col-12 mt-4">
+                <h5>Description</h5>
+                <p class="text-muted">{{ product.description }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% include 'footer.html' %}
+{% endblock %}

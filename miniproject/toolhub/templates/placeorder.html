@@ -1,0 +1,71 @@
+{% extends 'app.html' %}
+{% block content %}
+  {% include 'navbar.html' %}
+  <div class="container mt-5">
+    <h1 class="mb-4">Enter Shipping Informations</h1>
+    <div class="row">
+      <div class="col-md-6 mb-5">
+        <form method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="inputName">First Name</label>
+            <input name="firstname" type="text" class="form-control" id="inputName" placeholder="Enter your full name">
+          </div>
+          <div class="form-group">
+            <label for="inputName">Lastname Name</label>
+            <input name="lastname" type="text" class="form-control" id="inputName" placeholder="Enter your full name">
+          </div>
+          <div class="form-group">
+            <label for="inputEmail">Email address</label>
+            <input name="email" type="email" class="form-control" id="inputEmail" placeholder="Enter your email">
+          </div>
+          <div class="form-group">
+            <label for="inputAddress">Address</label>
+            <input name="address" type="text" class="form-control" id="inputAddress" placeholder="Enter your address">
+          </div>
+          <div class="form-group">
+            <label for="inputCity">City</label>
+            <input name="city" type="text" class="form-control" id="inputCity" placeholder="Enter your city">
+          </div>
+          <div class="form-group">
+            <label for="inputZip">Zip Code</label>
+            <input name="zip" type="text" class="form-control" id="inputZip" placeholder="Enter your zip code">
+          </div>
+          <button type="submit" id="pay-btn" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Razorpay's Javascript code. -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script>
+    var options = {
+       
+      // Enter the Key ID generated from the Dashboard
+      key: "{{ razorpay_merchant_key }}", 
+       
+      // Amount is in currency subunits.
+      // Default currency is INR. Hence, 
+      // 50000 refers to 50000 paise
+      amount: "{{ razorpay_amount }}", 
+      currency: "{{ currency }}",
+       
+      // Your/store name.
+      name: "ToolHub", 
+       
+      // Pass the `id` obtained in the response of Step 1
+      order_id: "{{ razorpay_order_id }}", 
+      callback_url: "{{ callback_url }}",
+    };
+     
+    // initialise razorpay with the options.
+    var rzp1 = new Razorpay(options);
+     
+    // add event listener to the payment button.
+    document.getElementById("pay-btn").onclick = function (e) {
+      rzp1.open();
+      e.preventDefault();
+    };
+  </script>
+  {% include 'footer.html' %}
+{% endblock %}

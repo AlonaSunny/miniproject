@@ -1,0 +1,88 @@
+{% extends 'app.html' %}
+{% load static %}
+{% block content %}
+  {% include 'navbar.html' %}
+
+  <div class="container mt-5">
+    {% if cart_items %}
+    <div class="row">
+     
+      <div class="col-md-8">
+        {% for item in cart_items %}
+        <div class="card mb-3 mt-5 cart-empty">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img src="{{ item.product.imageURL }}" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">{{ item.product.name }}</h5>
+                <p class="card-text">Price: ₹{{ item.product.price }}</p>
+                <p class="card-text">Quantity: {{ item.quantity }}</p>
+                <p class="card-text">Subtotal: ₹{{ item.subtotal }}</p>
+                <form action="{% url 'remove_from_cart' %}" method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="product_id" value="{{ item.product.id }}">
+                  <button type="submit" class="btn btn-danger">Remove</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+    </div>
+    <div class="row container mb-5">
+      <div class="col-md-8 mt-3 border cart-empty">
+        <div class="row mt-3">
+          <div class="col-4">
+            <p class="text-muted">Items Total:<p>
+          </div>
+          <div class="col-4">
+            <p class="text-muted"> ₹{{ total_price }}<p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            <p class="text-muted">Delivery Charge:<p>
+          </div>
+          <div class="col-4">
+            <p class="text-muted"> Free<p>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-4">
+            <p class="">Amount Payable<p>
+          </div>
+          <div class="col-4">
+            <p class="text-success"> ₹{{ total_price }}<p>
+          </div><br>
+        </div>
+        <div class="row mb-3 mt-2">
+          <div class="col-12">
+            <a href="{% url 'checkout' %}" class="btn btn-primary">Checkout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    {% else %}
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12 text-center mt-5 mb-5 border cart-empty ">
+          <img src="{% static 'images/empty_cart.webp' %}" alt="">
+          <h5>Your Cart is Empty</h5>
+          <p>Looks Like You haven't made Your Choice Yet</p>
+          <button class="btn btn-primary mb-5"><a href="{% url 'index' %}">Continue Shopping</a></button>
+
+        </div>
+        
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+  {% include 'footer.html' %}
+{% endblock %}

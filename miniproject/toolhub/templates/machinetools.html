@@ -1,0 +1,31 @@
+{% extends "app.html" %}
+{% load static %}
+{% block content %}
+{% include "navbar.html" %}
+    <div class="container-fluid m-5 ">
+        <h1 class="m-5">Machine Tools </h1>
+  
+    <div class="sec-body container">
+        <!-- machine Tools Section -->
+        <section id="machinetools">
+            <div id="product-list" class="row">
+                <!-- products of machine tools -->
+                {% for x in machinetools %}
+                <div class="col-md-4">
+                    <div class="product">
+                        <a href="{% url 'description' x.id %}" class="zoom-img"><img src="{{x.imageURL}}" alt="Product 2" class="prod-img"></a>
+                        <h5>{{x.name}}</h5>
+                        <p class="text-success">₹{{x.price}}</p>
+                        <button class="btn btn-primary">Add to Cart</button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+       
+    
+        <!-- Add more sections for  categories -->
+    </div>
+    {% include 'footer.html' %}
+    {% endblock content %}
